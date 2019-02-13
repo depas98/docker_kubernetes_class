@@ -1,0 +1,10 @@
+# this is version of docker compose
+version: '3'
+services:
+  redis-server:
+    image: 'redis'
+    # name: 'redis'
+  node-app:
+    build: .  # look for a Dockerfile in the current file  
+    ports:
+      - "4001:8081"
