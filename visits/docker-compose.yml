@@ -6,6 +6,7 @@ services:
     ports:
       - "6379:6379" # didn't work w/o this line
   node-app:
+    restart: unless-stopped  # this container will always restart 
     build: . # look for a Dockerfile in the current file
     ports:
       - "4001:8081"

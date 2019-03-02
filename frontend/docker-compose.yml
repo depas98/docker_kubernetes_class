@@ -1,0 +1,16 @@
+version: '3'
+services:
+  web:
+    environment: 
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=:true  # This was key getting the refresh in node.js to work 
+    build:  
+      context: .
+      dockerfile: Dockerfile.dev  # need this cause our build file is different then Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      # Need because we deleted the node_modules directory so we didn't double copy since the image creation downloads it
+      # but the .:/app mapping would override the node_modules dir so we need to put a bookmark on it so it doesn't get over-written (don't try to map it up)
+      - /app/node_modules # this bookmarks the node_modules directory saying this doesn't have a mapping to outside the container
+      - .:/app # <directory outside of the container> : <directory inside the container>
